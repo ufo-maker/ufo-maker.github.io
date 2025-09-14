@@ -17,6 +17,7 @@
             --github-purple: #bc8cff;
             --github-text: #c9d1d9;
             --github-text-secondary: #8b949e;
+            --github-orange: #ffa657;
         }
         
         * {
@@ -30,6 +31,7 @@
             background-color: var(--github-black);
             color: var(--github-text);
             line-height: 1.6;
+            padding-bottom: 40px;
         }
         
         .container {
@@ -60,6 +62,8 @@
             gap: 10px;
             font-weight: 600;
             font-size: 20px;
+            text-decoration: none;
+            color: var(--github-text);
         }
         
         .logo i {
@@ -76,10 +80,13 @@
             text-decoration: none;
             font-size: 14px;
             transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
         
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: var(--github-blue);
+            background-color: var(--github-gray);
         }
         
         /* 个人信息区域 */
@@ -96,6 +103,9 @@
             border: 1px solid var(--github-light-gray);
             padding: 24px;
             text-align: center;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
         }
         
         .profile-img {
@@ -105,6 +115,12 @@
             object-fit: cover;
             margin-bottom: 20px;
             border: 3px solid var(--github-blue);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
         }
         
         .profile-name {
@@ -123,6 +139,25 @@
             font-size: 14px;
         }
         
+        .profile-location, .profile-website, .profile-twitter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--github-text-secondary);
+        }
+        
+        .profile-location a, .profile-website a, .profile-twitter a {
+            color: var(--github-text-secondary);
+            text-decoration: none;
+        }
+        
+        .profile-location a:hover, .profile-website a:hover, .profile-twitter a:hover {
+            color: var(--github-blue);
+        }
+        
         .profile-stats {
             display: flex;
             justify-content: space-around;
@@ -133,11 +168,17 @@
         
         .stat {
             text-align: center;
+            cursor: pointer;
+        }
+        
+        .stat:hover .stat-number {
+            color: var(--github-blue);
         }
         
         .stat-number {
             font-size: 18px;
             font-weight: 600;
+            transition: color 0.3s;
         }
         
         .stat-label {
@@ -158,6 +199,10 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         
         .btn-primary {
@@ -216,12 +261,15 @@
             border: 1px solid var(--github-light-gray);
             border-radius: 8px;
             padding: 16px;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
         
         .project-card:hover {
             transform: translateY(-5px);
             border-color: var(--github-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .project-header {
@@ -234,6 +282,14 @@
             font-weight: 600;
             color: var(--github-blue);
             text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .project-name:hover {
+            text-decoration: underline;
         }
         
         .project-visibility {
@@ -247,8 +303,7 @@
         .project-description {
             font-size: 14px;
             margin-bottom: 16px;
-            height: 40px;
-            overflow: hidden;
+            flex-grow: 1;
         }
         
         .project-topics {
@@ -264,6 +319,11 @@
             font-size: 12px;
             padding: 4px 8px;
             border-radius: 12px;
+            cursor: pointer;
+        }
+        
+        .topic:hover {
+            background-color: #1c6beb4d;
         }
         
         .project-stats {
@@ -277,6 +337,11 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            cursor: pointer;
+        }
+        
+        .project-stat:hover {
+            color: var(--github-blue);
         }
         
         /* 技能图表 */
@@ -328,9 +393,19 @@
             font-size: 14px;
         }
         
+        .timeline-content a {
+            color: var(--github-blue);
+            text-decoration: none;
+        }
+        
+        .timeline-content a:hover {
+            text-decoration: underline;
+        }
+        
         /* 贡献图 */
         .contributions {
             overflow-x: auto;
+            padding: 10px 0;
         }
         
         .contributions-grid {
@@ -343,6 +418,8 @@
         .contribution-cell {
             background-color: var(--github-gray);
             border-radius: 2px;
+            cursor: pointer;
+            position: relative;
         }
         
         .contribution-cell[data-level="1"] {
@@ -359,6 +436,21 @@
         
         .contribution-cell[data-level="4"] {
             background-color: #39d353;
+        }
+        
+        .contribution-cell:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: black;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 100;
         }
         
         /* 页脚 */
@@ -382,10 +474,46 @@
             color: var(--github-text-secondary);
             font-size: 18px;
             transition: color 0.3s;
+            text-decoration: none;
         }
         
         .social-links a:hover {
             color: var(--github-blue);
+        }
+        
+        /* 标签页 */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--github-light-gray);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-size: 14px;
+            color: var(--github-text-secondary);
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--github-orange);
+            color: var(--github-text);
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            color: var(--github-text);
+            background-color: var(--github-gray);
+            border-radius: 6px 6px 0 0;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         /* 响应式设计 */
@@ -396,6 +524,7 @@
             
             .profile-card {
                 flex: 1;
+                position: static;
             }
         }
         
@@ -408,22 +537,99 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* 加载动画 */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .loader-circle {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--github-gray);
+            border-top: 4px solid var(--github-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--github-dark);
+            border-radius: 8px;
+            border: 1px solid var(--github-light-gray);
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--github-text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
+                <a href="#" class="logo">
                     <i class="fab fa-github"></i>
                     <span>GitHub</span>
-                </div>
+                </a>
                 <div class="nav-links">
-                    <a href="#">概览</a>
-                    <a href="#">仓库</a>
-                    <a href="#">项目</a>
-                    <a href="#">包</a>
-                    <a href="#">团队</a>
+                    <a href="#" class="active">概览</a>
+                    <a href="#repositories">仓库</a>
+                    <a href="#projects">项目</a>
+                    <a href="#packages">包</a>
+                    <a href="#stars">星标</a>
                 </div>
             </nav>
         </div>
@@ -432,165 +638,334 @@
     <div class="container">
         <div class="profile-section">
             <div class="profile-card">
-                <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Profile" class="profile-img">
+                <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Profile" class="profile-img" id="profileImage">
                 <h1 class="profile-name">Octocat</h1>
                 <p class="profile-username">octocat</p>
                 <p class="profile-bio">The official octocat of GitHub</p>
                 
+                <div class="profile-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>San Francisco, CA</span>
+                </div>
+                <div class="profile-website">
+                    <i class="fas fa-link"></i>
+                    <a href="https://github.blog" target="_blank">github.blog</a>
+                </div>
+                <div class="profile-twitter">
+                    <i class="fab fa-twitter"></i>
+                    <a href="https://twitter.com/github" target="_blank">@github</a>
+                </div>
+                
                 <div class="profile-stats">
-                    <div class="stat">
+                    <div class="stat" onclick="showModal('followers')">
                         <div class="stat-number">32</div>
                         <div class="stat-label">粉丝</div>
                     </div>
-                    <div class="stat">
+                    <div class="stat" onclick="showModal('following')">
                         <div class="stat-number">16</div>
                         <div class="stat-label">关注中</div>
                     </div>
-                    <div class="stat">
+                    <div class="stat" onclick="showModal('stars')">
                         <div class="stat-number">8</div>
                         <div class="stat-label">星标</div>
                     </div>
                 </div>
                 
                 <div class="profile-actions">
-                    <button class="btn btn-primary">关注</button>
-                    <button class="btn btn-secondary">
+                    <button class="btn btn-primary" onclick="followUser()">
+                        <i class="fas fa-user-plus"></i> 关注
+                    </button>
+                    <button class="btn btn-secondary" onclick="showModal('message')">
                         <i class="far fa-envelope"></i> 发消息
                     </button>
                 </div>
             </div>
             
             <div class="main-content">
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">精选项目</h2>
-                        <a href="#" style="color: var(--github-blue); text-decoration: none; font-size: 14px;">查看所有项目</a>
+                <div class="tabs">
+                    <div class="tab active" data-tab="overview">概览</div>
+                    <div class="tab" data-tab="repositories">仓库</div>
+                    <div class="tab" data-tab="projects">项目</div>
+                    <div class="tab" data-tab="stars">星标</div>
+                </div>
+                
+                <div class="tab-content active" id="overview">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">精选项目</h2>
+                            <a href="#repositories" style="color: var(--github-blue); text-decoration: none; font-size: 14px;">查看所有项目</a>
+                        </div>
+                        
+                        <div class="projects-grid">
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <a href="https://github.com/octocat/hello-world" class="project-name" target="_blank">
+                                        <i class="fas fa-book"></i> hello-world
+                                    </a>
+                                    <span class="project-visibility">公开</span>
+                                </div>
+                                <p class="project-description">我的第一个GitHub仓库，用于学习Git和GitHub。</p>
+                                <div class="project-topics">
+                                    <span class="topic">初学者</span>
+                                    <span class="topic">示例</span>
+                                    <span class="topic">教程</span>
+                                </div>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="fas fa-star" style="color: #e3b341;"></i>
+                                        <span>128</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
+                                        <span>64</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <span>更新于 3天前</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <a href="https://github.com/octocat/awesome-project" class="project-name" target="_blank">
+                                        <i class="fas fa-book"></i> awesome-project
+                                    </a>
+                                    <span class="project-visibility">公开</span>
+                                </div>
+                                <p class="project-description">一个很棒的项目，收集了许多有用的资源和工具。</p>
+                                <div class="project-topics">
+                                    <span class="topic">工具</span>
+                                    <span class="topic">资源</span>
+                                    <span class="topic">文档</span>
+                                </div>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="fas fa-star" style="color: #e3b341;"></i>
+                                        <span>432</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
+                                        <span>87</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <span>更新于 2周前</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <a href="https://github.com/octocat/machine-learning" class="project-name" target="_blank">
+                                        <i class="fas fa-book"></i> machine-learning
+                                    </a>
+                                    <span class="project-visibility">公开</span>
+                                </div>
+                                <p class="project-description">机器学习项目，包含各种算法实现和示例。</p>
+                                <div class="project-topics">
+                                    <span class="topic">机器学习</span>
+                                    <span class="topic">Python</span>
+                                    <span class="topic">AI</span>
+                                </div>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="fas fa-star" style="color: #e3b341;"></i>
+                                        <span>289</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
+                                        <span>42</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <span>更新于 1个月前</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="projects-grid">
-                        <div class="project-card">
-                            <div class="project-header">
-                                <a href="#" class="project-name">hello-world</a>
-                                <span class="project-visibility">公开</span>
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">技能分析</h2>
+                        </div>
+                        
+                        <div class="skills-chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">近期活动</h2>
+                        </div>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023年10月15日</div>
+                                <div class="timeline-content">在项目 <a href="https://github.com/octocat/awesome-project" target="_blank">awesome-project</a> 中提交了代码</div>
                             </div>
-                            <p class="project-description">我的第一个GitHub仓库，用于学习Git和GitHub。</p>
-                            <div class="project-topics">
-                                <span class="topic">初学者</span>
-                                <span class="topic">示例</span>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023年10月12日</div>
+                                <div class="timeline-content">创建了新仓库 <a href="https://github.com/octocat/machine-learning" target="_blank">machine-learning</a></div>
                             </div>
-                            <div class="project-stats">
-                                <div class="project-stat">
-                                    <i class="fas fa-star" style="color: #e3b341;"></i>
-                                    <span>128</span>
-                                </div>
-                                <div class="project-stat">
-                                    <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
-                                    <span>64</span>
-                                </div>
-                                <div class="project-stat">
-                                    <span>更新于 3天前</span>
-                                </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023年10月8日</div>
+                                <div class="timeline-content">关注了用户 <a href="https://github.com/github" target="_blank">github</a></div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">2023年10月5日</div>
+                                <div class="timeline-content">给项目 <a href="https://github.com/octocat/hello-world" target="_blank">hello-world</a> 添加了星标</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">贡献活动</h2>
+                        </div>
+                        
+                        <div class="contributions">
+                            <div class="contributions-grid" id="contributionsGrid"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="repositories">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">所有仓库</h2>
+                            <div>
+                                <button class="btn btn-secondary" style="margin-right: 10px;">
+                                    <i class="fas fa-search"></i> 查找仓库
+                                </button>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> 新建
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="project-card">
-                            <div class="project-header">
-                                <a href="#" class="project-name">awesome-project</a>
-                                <span class="project-visibility">公开</span>
-                            </div>
-                            <p class="project-description">一个很棒的项目，收集了许多有用的资源和工具。</p>
-                            <div class="project-topics">
-                                <span class="topic">工具</span>
-                                <span class="topic">资源</span>
-                                <span class="topic">文档</span>
-                            </div>
-                            <div class="project-stats">
-                                <div class="project-stat">
-                                    <i class="fas fa-star" style="color: #e3b341;"></i>
-                                    <span>432</span>
+                        <div class="projects-grid">
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <a href="https://github.com/octocat/Spoon-Knife" class="project-name" target="_blank">
+                                        <i class="fas fa-book"></i> Spoon-Knife
+                                    </a>
+                                    <span class="project-visibility">公开</span>
                                 </div>
-                                <div class="project-stat">
-                                    <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
-                                    <span>87</span>
+                                <p class="project-description">This repo is for demonstration purposes only.</p>
+                                <div class="project-topics">
+                                    <span class="topic">HTML</span>
                                 </div>
-                                <div class="project-stat">
-                                    <span>更新于 2周前</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="project-card">
-                            <div class="project-header">
-                                <a href="#" class="project-name">machine-learning</a>
-                                <span class="project-visibility">公开</span>
-                            </div>
-                            <p class="project-description">机器学习项目，包含各种算法实现和示例。</p>
-                            <div class="project-topics">
-                                <span class="topic">机器学习</span>
-                                <span class="topic">Python</span>
-                                <span class="topic">AI</span>
-                            </div>
-                            <div class="project-stats">
-                                <div class="project-stat">
-                                    <i class="fas fa-star" style="color: #e3b341;"></i>
-                                    <span>289</span>
-                                </div>
-                                <div class="project-stat">
-                                    <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
-                                    <span>42</span>
-                                </div>
-                                <div class="project-stat">
-                                    <span>更新于 1个月前</span>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="fas fa-star" style="color: #e3b341;"></i>
+                                        <span>11.5k</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
+                                        <span>134.5k</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <span>更新于 2年前</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">技能分析</h2>
-                    </div>
-                    
-                    <div class="skills-chart-container">
-                        <canvas id="skillsChart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">近期活动</h2>
-                    </div>
-                    
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">2023年10月15日</div>
-                            <div class="timeline-content">在项目 <a href="#" style="color: var(--github-blue);">awesome-project</a> 中提交了代码</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2023年10月12日</div>
-                            <div class="timeline-content">创建了新仓库 <a href="#" style="color: var(--github-blue);">machine-learning</a></div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2023年10月8日</div>
-                            <div class="timeline-content">关注了用户 <a href="#" style="color: var(--github-blue);">github</a></div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2023年10月5日</div>
-                            <div class="timeline-content">给项目 <a href="#" style="color: var(--github-blue);">hello-world</a> 添加了星标</div>
+                            
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <a href="https://github.com/octocat/boysenberry-repo-1" class="project-name" target="_blank">
+                                        <i class="fas fa-book"></i> boysenberry-repo-1
+                                    </a>
+                                    <span class="project-visibility">公开</span>
+                                </div>
+                                <p class="project-description">Testing</p>
+                                <div class="project-topics">
+                                    <span class="topic">测试</span>
+                                </div>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="fas fa-star" style="color: #e3b341;"></i>
+                                        <span>937</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
+                                        <span>473</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <span>更新于 6年前</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <a href="https://github.com/octocat/git-consortium" class="project-name" target="_blank">
+                                        <i class="fas fa-book"></i> git-consortium
+                                    </a>
+                                    <span class="project-visibility">公开</span>
+                                </div>
+                                <p class="project-description">This repo is for demonstration purposes only.</p>
+                                <div class="project-topics">
+                                    <span class="topic">Git</span>
+                                </div>
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="fas fa-star" style="color: #e3b341;"></i>
+                                        <span>25</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch" style="color: var(--github-blue);"></i>
+                                        <span>44</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <span>更新于 7年前</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="section">
-                    <div class="section-header">
-                        <h2 class="section-title">贡献活动</h2>
-                    </div>
-                    
-                    <div class="contributions">
-                        <div class="contributions-grid" id="contributionsGrid"></div>
+                <div class="tab-content" id="projects">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">项目</h2>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i> 新建项目
+                            </button>
+                        </div>
+                        <div class="loader">
+                            <div class="loader-circle"></div>
+                        </div>
                     </div>
                 </div>
+                
+                <div class="tab-content" id="stars">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">星标项目</h2>
+                        </div>
+                        <div class="loader">
+                            <div class="loader-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">模态框标题</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                模态框内容
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" id="modalAction">确认</button>
             </div>
         </div>
     </div>
@@ -598,10 +973,10 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-dev"></i></a>
-                <a href="#"><i class="fab fa-medium"></i></a>
+                <a href="https://twitter.com/github" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/github" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/octocat" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/readme" target="_blank"><i class="fas fa-rss"></i></a>
             </div>
             <p>© 2023 GitHub仿制页面. 本页面仅用于展示目的.</p>
             <p>GitHub是GitHub, Inc.的注册商标</p>
@@ -609,8 +984,25 @@
     </footer>
 
     <script>
-        // 技能图表
+        // 初始化页面
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化技能图表
+            initSkillsChart();
+            
+            // 生成贡献图
+            generateContributionsGrid();
+            
+            // 设置标签页切换
+            setupTabs();
+            
+            // 设置图片点击事件
+            document.getElementById('profileImage').addEventListener('click', function() {
+                showModal('profile');
+            });
+        });
+        
+        // 初始化技能图表
+        function initSkillsChart() {
             const ctx = document.getElementById('skillsChart').getContext('2d');
             const skillsChart = new Chart(ctx, {
                 type: 'radar',
@@ -641,7 +1033,8 @@
                             },
                             ticks: {
                                 backdropColor: 'transparent',
-                                color: '#8b949e'
+                                color: '#8b949e',
+                                stepSize: 20
                             }
                         }
                     },
@@ -654,16 +1047,119 @@
                     }
                 }
             });
-            
-            // 生成贡献图
+        }
+        
+        // 生成贡献图
+        function generateContributionsGrid() {
             const contributionsGrid = document.getElementById('contributionsGrid');
+            const now = new Date();
+            const startDate = new Date(now);
+            startDate.setDate(now.getDate() - 365);
+            
             for (let i = 0; i < 53 * 7; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'contribution-cell';
+                
                 // 随机生成贡献等级
                 const level = Math.floor(Math.random() * 5);
                 cell.setAttribute('data-level', level);
+                
+                // 计算日期
+                const cellDate = new Date(startDate);
+                cellDate.setDate(startDate.getDate() + i);
+                
+                // 设置提示文本
+                const count = level * 3 + Math.floor(Math.random() * 3);
+                cell.setAttribute('data-tooltip', `${count} contributions on ${cellDate.toDateString()}`);
+                
                 contributionsGrid.appendChild(cell);
+            }
+        }
+        
+        // 设置标签页切换
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有活动标签
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加活动类到当前标签
+                    tab.classList.add('active');
+                    
+                    // 显示对应内容
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+        
+        // 显示模态框
+        function showModal(type) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalAction = document.getElementById('modalAction');
+            
+            switch(type) {
+                case 'followers':
+                    modalTitle.textContent = '粉丝';
+                    modalBody.innerHTML = '<p>这里将显示您的粉丝列表。</p>';
+                    modalAction.textContent = '好的';
+                    break;
+                case 'following':
+                    modalTitle.textContent = '关注中';
+                    modalBody.innerHTML = '<p>这里将显示您关注的用户列表。</p>';
+                    modalAction.textContent = '好的';
+                    break;
+                case 'stars':
+                    modalTitle.textContent = '星标';
+                    modalBody.innerHTML = '<p>这里将显示您加星标的项目。</p>';
+                    modalAction.textContent = '好的';
+                    break;
+                case 'message':
+                    modalTitle.textContent = '发送消息';
+                    modalBody.innerHTML = `
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <input type="text" placeholder="主题" style="padding: 8px; border-radius: 4px; border: 1px solid var(--github-light-gray); background-color: var(--github-gray); color: var(--github-text);">
+                            <textarea placeholder="消息内容" rows="5" style="padding: 8px; border-radius: 4px; border: 1px solid var(--github-light-gray); background-color: var(--github-gray); color: var(--github-text); resize: vertical;"></textarea>
+                        </div>
+                    `;
+                    modalAction.textContent = '发送';
+                    break;
+                case 'profile':
+                    modalTitle.textContent = '个人资料图片';
+                    modalBody.innerHTML = '<img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Profile" style="width: 100%; border-radius: 8px;">';
+                    modalAction.textContent = '下载';
+                    break;
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        
+        // 关注用户功能
+        function followUser() {
+            const btn = document.querySelector('.btn-primary');
+            if (btn.textContent.includes('关注')) {
+                btn.innerHTML = '<i class="fas fa-check"></i> 已关注';
+                alert('您已关注 octocat');
+            } else {
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> 关注';
+                alert('您已取消关注 octocat');
+            }
+        }
+        
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
             }
         });
     </script>
